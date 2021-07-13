@@ -16,14 +16,12 @@ public class QuizController {
 
     @Autowired(required=true)
     private  QuizService quizService;
-
-    @Autowired
-    private Util util;
+    
 
     @RequestMapping(value = "/coding/exercise/quiz",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<QuizApiResponse>> getQuizzes() {
 
-        Mono<QuizApiResponse> mono = quizService.getQuizApiResponse(util.generateQueryParams());
+        Mono<QuizApiResponse> mono = quizService.getQuizApiResponse();
 
         return mono.map(u -> ResponseEntity.ok(u))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
