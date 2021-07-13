@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 public interface QuizService {
     Mono<Quiz> getQuiz(MultiValueMap<String, String> queryParams);
 
-    Mono<QuizApiResponse> getQuizApiResponse(List<MultiValueMap<String, String>> queryParams);
+    Mono<QuizApiResponse> getQuizApiResponse();
 
     Mono<QuizDto> getQuizDto(MultiValueMap<String, String> queryParams);
 
