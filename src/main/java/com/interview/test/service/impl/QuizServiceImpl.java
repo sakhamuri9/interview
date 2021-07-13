@@ -32,12 +32,6 @@ public class QuizServiceImpl implements QuizService {
     @Autowired(required=true)
     private  Util util;
 
-    public QuizServiceImpl(WebClient webClient, DtoMapper dtoMapper, Util util) {
-        this.webClient = webClient;
-        this.dtoMapper = dtoMapper;
-        this.util = util;
-    }
-
     @Override
         public Mono<Quiz> getQuiz(MultiValueMap<String, String> queryParams) {
             final String uri = util.buildURI(queryParams);
@@ -49,9 +43,9 @@ public class QuizServiceImpl implements QuizService {
         }
 
         @Override
-        public Mono<QuizApiResponse> getQuizApiResponse(List<MultiValueMap<String, String>> queryParams) {
+        public Mono<QuizApiResponse> getQuizApiResponse() {
 
-            Stream<Mono<QuizDto>> quizStream = queryParams.stream()
+            Stream<Mono<QuizDto>> quizStream = util.generateQueryParams().stream()
                     .map(this::getQuizDto);
             Mono<List<QuizDto>> mono = Flux.fromIterable(quizStream.collect(Collectors.toList()))
                     .flatMap(Function.identity())
